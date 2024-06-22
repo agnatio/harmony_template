@@ -1,0 +1,25 @@
+./
+│   ├── folders.txt
+│   ├── requirements.txt
+│   ├── .gitignore
+│   ├── main.py
+│   ├── directory_structure.py
+├── routers/
+    │   ├── auth.py
+    │   ├── users.py
+├── services/
+    │   ├── user_service.py
+├── db/
+    │   ├── db_init.py
+    │   ├── db_repository.py
+    │   ├── db_auth.py
+    │   ├── _db_repository.py
+    │   ├── db_create.py
+    │   ├── db_models.py
+├── genpass_folder/
+    │   ├── crypto_fernet.py
+    │   ├── genpass.py
+├── repositories/
+    │   ├── user_repository.py
+├── static/
+    │   ├── fox.ico
