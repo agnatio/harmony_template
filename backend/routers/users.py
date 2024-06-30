@@ -1,4 +1,3 @@
-users_router = ""
 from fastapi import APIRouter, Depends
 from fastapi.exceptions import HTTPException
 from db.db_create import async_create_database, async_create_tables
@@ -78,6 +77,22 @@ def create_user(
         email=user.email,
         hashed_password=hashed_password,
         is_superuser=user.is_superuser,
+    )
+    created_user = user_repo.create_user(db_user)
+    return created_user
+
+
+@users_router.post("/register")
+def register_user(
+    user: UserCreate,
+    user_repo: IUserRepository = Depends(get_user_repository),
+):
+    hashed_password = pwd_context.hash(user.password)
+    db_user = DBUser(
+        username=user.username,
+        email=user.email,
+        hashed_password=hashed_password,
+        is_superuser=False,
     )
     created_user = user_repo.create_user(db_user)
     return created_user

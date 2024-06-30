@@ -6,7 +6,7 @@ from typing import Optional
 class UserBase(BaseModel):
     username: str
     email: str
-    is_superuser: bool
+    is_superuser: Optional[bool] = False
 
 
 class UserCreate(UserBase):
