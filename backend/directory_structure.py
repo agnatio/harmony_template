@@ -3,7 +3,7 @@ import os
 
 def list_files(
     startpath,
-    remove_objects="_delete/",
+    remove_objects=["_delete/", "__pycache__", "alembic", "node_modules"],
     max_levels=None,
 ):
     # Initial display for the root directory
@@ -44,4 +44,4 @@ def list_files(
 if __name__ == "__main__":
     remove_objects = ["venv", ".git"]
 
-    list_files(".", max_levels=20, remove_objects=remove_objects)
+    list_files(".", max_levels=3, remove_objects=remove_objects)
