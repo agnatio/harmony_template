@@ -1,6 +1,6 @@
 <!-- src/App.vue -->
 <template>
-  <div id="app" class="font-sans text-center text-gray-800">
+  <div id="app" class="">
     <TopMenu />
     <router-view></router-view>
   </div>
