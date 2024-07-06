@@ -32,33 +32,15 @@
 
 <script setup>
     import { ref } from 'vue';
-    import axios from 'axios';
-    import { useRouter } from 'vue-router';
+    import authApi from '@/core/authApi';
 
     const username = ref('');
     const password = ref('');
     const errorMessage = ref('');
-    const router = useRouter();
 
     const handleLogin = async () => {
         try {
-            console.log(username.value);
-            console.log(password.value);
-            const response = await axios.post('http://localhost:8000/auth/login', {
-                username: username.value,
-                password: password.value,
-            });
-
-            console.log(response);
-
-            // Correctly access the token from the response
-            const token = response.data.access_token;
-
-            // Save the token in local storage or any other storage
-            localStorage.setItem('token', token);
-
-            // Redirect to the home page
-            router.push({ name: 'home' });
+            authApi.login(username.value, password.value);
         } catch (error) {
             console.error('Error during login:', error);
 
