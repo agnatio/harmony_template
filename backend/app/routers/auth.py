@@ -56,3 +56,8 @@ def login_for_access_token(
 @auth_router.get("/users/me")
 def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
+
+
+@auth_router.get("/test")
+def check_router():
+    return {"test": "test"}
