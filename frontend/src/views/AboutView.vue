@@ -12,3 +12,12 @@
     </div>
   </main>
 </template>
+
+<script setup>
+import {onMounted} from 'vue'
+import authApi from '@/core/authApi'
+
+onMounted(() => {
+  authApi.checkAuth()
+})
+</script>
