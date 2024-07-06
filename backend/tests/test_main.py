@@ -16,3 +16,10 @@ def test_read_main(client):
 def test_auth_check(client):
     response = client.get("/auth/test/")
     assert response.status_code == 200
+    assert response.json() == {"test": "test"}
+
+
+def test_users_check(client):
+    response = client.get("/users/test/")
+    assert response.status_code == 200
+    assert response.json() == {"test": "test"}

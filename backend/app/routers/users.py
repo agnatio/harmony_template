@@ -26,9 +26,9 @@ users_router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-@users_router.get("/hello")
+@users_router.get("/test")
 async def hello_user():
-    return {"message": "Hello, User!"}
+    return {"test": "test"}
 
 
 @users_router.get("/{user_id}")
