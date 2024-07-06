@@ -13,18 +13,18 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, ValidationError
 from contextlib import asynccontextmanager
 
-from db.db_create import async_create_database, async_create_tables
-from db.db_init import get_db
-from db.db_models import User as DBUser
-from db.db_init import engine
+from app.db.db_create import async_create_database, async_create_tables
+from app.db.db_init import get_db
+from app.db.db_models import User as DBUser
+from app.db.db_init import engine
 
-from repositories.sqlalchemy_repository import SQLAlchemyUserRepository
-from repositories.user_repository_interface import IUserRepository
+from app.repositories.sqlalchemy_repository import SQLAlchemyUserRepository
+from app.repositories.user_repository_interface import IUserRepository
 
-from models.users import User, UserCreate
+from app.models.users import User, UserCreate
 
-from routers.auth import auth_router
-from routers.users import users_router
+from app.routers.auth import auth_router
+from app.routers.users import users_router
 
 import os
 import random
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(
-        "main:app",
+        "app.main:app",
         host="localhost",
         port=8000,
         reload=True,

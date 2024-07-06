@@ -11,7 +11,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from db.db_init import Base
+from app.db.db_init import Base
 from datetime import datetime
 
 

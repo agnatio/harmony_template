@@ -1,7 +1,7 @@
 # repositories/user_repository.py
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from db.db_models import User
+from app.db.db_models import User
 
 
 class IUserRepository(ABC):

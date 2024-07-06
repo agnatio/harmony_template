@@ -2,8 +2,8 @@
 
 from typing import List, Optional
 from sqlalchemy.orm import Session
-from db.db_models import User
-from repositories.user_repository_interface import IUserRepository
+from app.db.db_models import User
+from app.repositories.user_repository_interface import IUserRepository
 
 
 class SQLAlchemyUserRepository(IUserRepository):

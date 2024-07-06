@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Compiled Python files
+*.pyc
+
+# Local development settings
+.env
+
+# Dependency directories
+# These are local directories where dependencies might be installed.
+# You might need to add additional directories if you use a different package manager.
+node_modules/

@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends
 from fastapi.exceptions import HTTPException
-from db.db_create import async_create_database, async_create_tables
-from db.db_init import get_db
-from db.db_models import User as DBUser
-from db.db_init import engine
+from app.db.db_create import async_create_database, async_create_tables
+from app.db.db_init import get_db
+from app.db.db_models import User as DBUser
+from app.db.db_init import engine
 from passlib.context import CryptContext
 
-from repositories.sqlalchemy_repository import SQLAlchemyUserRepository
-from repositories.user_repository_interface import IUserRepository
+from app.repositories.sqlalchemy_repository import SQLAlchemyUserRepository
+from app.repositories.user_repository_interface import IUserRepository
 
-from utils.auth_utils import (
+from app.utils.auth_utils import (
     create_access_token,
     decode_access_token,
     get_password_hash,
@@ -17,9 +17,9 @@ from utils.auth_utils import (
     get_current_user,
 )
 
-from models.users import User, UserCreate
+from app.models.users import User, UserCreate
 
-from dependencies.endpoint_dependencies import get_user_repository
+from app.dependencies.endpoint_dependencies import get_user_repository
 
 users_router = APIRouter()
 

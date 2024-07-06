@@ -5,18 +5,18 @@ from sqlalchemy.orm import Session
 from datetime import timedelta
 from typing import Optional
 
-from utils.auth_utils import (
+from app.utils.auth_utils import (
     create_access_token,
     decode_access_token,
     get_password_hash,
     verify_password,
     get_current_user,
 )
-from db.db_init import get_db
-from repositories.user_repository_interface import IUserRepository
-from dependencies.endpoint_dependencies import get_user_repository
-from models.auth_models import Token
-from models.users import User
+from app.db.db_init import get_db
+from app.repositories.user_repository_interface import IUserRepository
+from app.dependencies.endpoint_dependencies import get_user_repository
+from app.models.auth_models import Token
+from app.models.users import User
 from pydantic import BaseModel
 
 auth_router = APIRouter()

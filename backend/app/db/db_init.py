@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-from db.db_auth import db_host, db_name, db_password, db_port, db_user
+from app.db.db_auth import db_host, db_name, db_password, db_port, db_user
 
 # Database URL
 DATABASE_URL = (

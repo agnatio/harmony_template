@@ -1,12 +1,12 @@
 import sqlalchemy
 from sqlalchemy import text, exc
-from db.db_init import (
+from app.db.db_init import (
     engine,
     DATABASE_URL,
     TECH_DATABASE_URL,
 )  # Import the engine from db_init.py
-from db.db_init import metadata  # Ensure this import matches your project structure
-from db.db_auth import db_host, db_name, db_password, db_port, db_user
+from app.db.db_init import metadata  # Ensure this import matches your project structure
+from app.db.db_auth import db_host, db_name, db_password, db_port, db_user
 import asyncio
 
 
