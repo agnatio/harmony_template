@@ -30,12 +30,11 @@
         isAuthenticated.value = await authApi.checkAuth();
     };
 
-    const handleLogout = () => {
-        authApi.logout();
+    const handleLogout = async () => {
+        await authApi.logout();
         isAuthenticated.value = false;
     };
 
-    onMounted(() => {
-        checkAuthStatus();
-    });
+    // Automatically check authentication status on component mount
+    onMounted(checkAuthStatus);
 </script>
