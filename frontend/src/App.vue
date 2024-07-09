@@ -1,4 +1,3 @@
-<!-- src/App.vue -->
 <template>
   <div id="app" class="">
     <TopMenu />
@@ -9,5 +8,3 @@
 <script setup>
   import TopMenu from './components/TopMenu.vue'
 </script>
-
-<!-- No need for additional styles since Tailwind is used -->

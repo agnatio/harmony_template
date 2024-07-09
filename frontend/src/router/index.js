@@ -23,8 +23,13 @@ const routes = [
     path: '/register',
     name: 'register',
     component: () => import('../views/RegisterView.vue'),
+  },
+  {
+    path: '/dummyprotected',
+    name: 'dummyprotected',
+    component: () => import('../views/DummyProtectedView.vue'),
   }
-  // Add other routes as needed
+
 ];
 
 const router = createRouter({

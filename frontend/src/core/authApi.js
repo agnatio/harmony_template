@@ -1,5 +1,5 @@
-import api from './api';
-import router from '../router/index';
+import api from './api'
+import router from '../router/index'
 
 const authApi = {
   async login(username, password) {
@@ -16,7 +16,6 @@ const authApi = {
   async checkAuth() {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
-      router.push({ name: 'login' });
       return false;
     }
 
@@ -25,10 +24,14 @@ const authApi = {
       return true;
     } catch (error) {
       localStorage.removeItem('access_token');
-      router.push({ name: 'login' });
       return false;
     }
+  },
+
+  logout() {
+    localStorage.removeItem('access_token');
+    router.push({ name: 'login' });
   }
-};
+}
 
 export default authApi;
