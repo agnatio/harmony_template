@@ -27,6 +27,11 @@ class UserLogin(BaseModel):
     password: str
 
 
+@auth_router.get("/test")
+def check_router():
+    return {"test": "test"}
+
+
 @auth_router.post("/login", response_model=Token)
 def login_for_access_token(
     user_login: UserLogin,
@@ -35,6 +40,7 @@ def login_for_access_token(
 ):
     username = user_login.username
     password = user_login.password
+    print("login function")
 
     user = user_repo.get_user_by_username(username)
 
@@ -58,6 +64,6 @@ def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
 
-@auth_router.get("/test")
-def check_router():
-    return {"test": "test"}
+@auth_router.get("/checkauth")
+async def check_auth(current_user: User = Depends(get_current_user)):
+    return {"status": "Authenticated"}

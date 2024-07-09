@@ -17,7 +17,7 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use((response) => response, (err) => {
   if (err.response.status === 401) {
-    router.push({ path: '/login' })
+    router.push({ path: '/auth/login' })
   }
   return Promise.reject(err)
 })

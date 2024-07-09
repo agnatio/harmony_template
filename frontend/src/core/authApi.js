@@ -1,29 +1,34 @@
-import api from './api'
-import router from '../router/index'
+import api from './api';
+import router from '../router/index';
 
 const authApi = {
-
-  async login(userName, password) {
+  async login(username, password) {
     const response = await api.post('/auth/login', {
-      userName,
+      username,
       password,
     });
 
-    // Correctly access the token from the response
     const token = response.data.access_token;
-
-    // Save the token in local storage or any other storage
     localStorage.setItem('access_token', token);
-
-    // Redirect to the home page
     router.push({ name: 'home' });
   },
 
   async checkAuth() {
-    console.log('401')
-    router.push({ name: 'login' });
-    //await api.get('/auth/checkauth')
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      router.push({ name: 'login' });
+      return false;
+    }
+
+    try {
+      await api.get('/auth/checkauth');
+      return true;
+    } catch (error) {
+      localStorage.removeItem('access_token');
+      router.push({ name: 'login' });
+      return false;
+    }
   }
-}
+};
 
 export default authApi;

@@ -24,3 +24,16 @@ def test_get_user(db_session: Session):
     user = db_session.query(User).filter_by(username="Test User").first()
     assert user is not None
     assert user.email == "test@example.com"
+
+
+def test_delete_user(db_session: Session):
+    user = db_session.query(User).filter_by(username="Test User").first()
+    assert user is not None  # Ensure the user exists before trying to delete
+
+    # Delete the user
+    db_session.delete(user)
+    db_session.commit()
+
+    # Verify the user has been deleted
+    deleted_user = db_session.query(User).filter_by(username="Test User").first()
+    assert deleted_user is None  # The user should no longer exist in the database
