@@ -35,10 +35,10 @@ export const useAuthStore = defineStore('auth', {
             console.log('Checking auth, token:', token);
             if (token) {
                 try {
-                    await api.get('/auth/checkauth'); // Assuming this endpoint verifies the token
+                    await api.get('/auth/checkauth');
                     this.isAuthenticated = true;
                     console.log('Auth check successful');
-                } catch {
+                } catch (error) {
                     this.isAuthenticated = false;
                     console.log('Auth check failed, redirecting to login');
                     router.push({ name: 'login' });
