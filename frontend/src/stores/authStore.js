@@ -1,8 +1,8 @@
 // src/stores/auth.js
 import { defineStore } from 'pinia';
-import api from '@/core/api';
+import api from '@/core/apiClient';
 import { router } from '@/router';
-import authApi from '@/core/authApi';
+import authApi from '@/core/authService';
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({

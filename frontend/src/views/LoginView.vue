@@ -32,7 +32,7 @@
 
 <script setup>
     import { ref } from 'vue';
-    import authApi from '@/core/authApi';
+    import authApi from '@/core/authService';
     import { useAuthStore } from '@/stores/authStore';
     import { router, accessSource } from '@/router/index';
 
