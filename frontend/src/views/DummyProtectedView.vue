@@ -10,7 +10,7 @@
 <script setup>
     import { ref, onMounted } from 'vue'
     import authApi from '@/core/authApi'
-    import router from '@/router'
+    import { router } from '@/router'
 
     const isAuthenticated = ref(false)
 

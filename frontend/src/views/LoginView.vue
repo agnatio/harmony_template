@@ -33,14 +33,25 @@
 <script setup>
     import { ref } from 'vue';
     import authApi from '@/core/authApi';
+    import { useAuthStore } from '@/stores/authStore';
+    import { router, accessSource } from '@/router/index';
 
     const username = ref('');
     const password = ref('');
     const errorMessage = ref('');
 
+    const authStore = useAuthStore();
+
     const handleLogin = async () => {
         try {
-            authApi.login(username.value, password.value);
+            authStore.login(username.value, password.value);
+            if (accessSource.value) {
+                router.push({ name: accessSource })
+                accessSource.value = ''
+            }
+            else {
+                router.push('/')
+            }
         } catch (error) {
             console.error('Error during login:', error);
 

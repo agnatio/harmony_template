@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as appsettings from '../../appsettings.json'
-import router from '../router/index'
+import { router } from '../router/index'
 
 const api = axios.create({
   baseURL: appsettings.baseUrl

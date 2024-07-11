@@ -3,7 +3,8 @@
         <div class="flex items-center gap-4">
             <router-link to="/" class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1"
                 active-class="font-bold">Home</router-link>
-            <router-link to="/about" class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1"
+            <router-link v-if="authStore.isAuthenticated" to="/about"
+                class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1"
                 active-class="font-bold">About</router-link>
             <router-link v-if="!authStore.isAuthenticated" to="/register"
                 class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1"
@@ -23,7 +24,7 @@
 </template>
 
 <script setup>
-    import { useAuthStore } from '@/stores/auth';
+    import { useAuthStore } from '@/stores/authStore';
     import { onMounted } from 'vue';
 
     const authStore = useAuthStore();

@@ -1,24 +1,28 @@
 // src/stores/auth.js
 import { defineStore } from 'pinia';
 import api from '@/core/api';
-import router from '@/router';
+import { router } from '@/router';
+import authApi from '@/core/authApi';
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         isAuthenticated: false,
+        userPath: '',
     }),
     actions: {
         async login(username, password) {
             try {
-                const response = await api.post('/auth/login', {
-                    username,
-                    password,
-                });
-                const token = response.data.access_token;
-                localStorage.setItem('access_token', token);
+                authApi.login(username, password)
                 this.isAuthenticated = true;
-                console.log('Login successful, token set:', token);
-                router.push({ name: 'home' });
+                // const response = await api.post('/auth/login', {
+                //     username,
+                //     password,
+                // });
+                // const token = response.data.access_token;
+                // localStorage.setItem('access_token', token);
+                // this.isAuthenticated = true;
+                // console.log('Login successful, token set:', token);
+                // router.push({ name: 'home' });
             } catch (error) {
                 console.error('Error during login:', error);
                 throw error;
