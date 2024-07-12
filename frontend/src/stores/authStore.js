@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async login(username, password) {
             try {
-                authApi.login(username, password)
+                await authApi.login(username, password)
                 this.isAuthenticated = true;
                 // const response = await api.post('/auth/login', {
                 //     username,
@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('auth', {
             localStorage.removeItem('access_token');
             this.isAuthenticated = false;
             console.log('Logged out, token removed');
-            router.push({ name: 'login' });
+            router.push({ name: 'home' });
         },
         async checkAuth() {
             const token = localStorage.getItem('access_token');
@@ -45,12 +45,12 @@ export const useAuthStore = defineStore('auth', {
                 } catch (error) {
                     this.isAuthenticated = false;
                     console.log('Auth check failed, redirecting to login');
-                    router.push({ name: 'login' });
+                    // router.push({ name: 'login' });
                 }
             } else {
                 this.isAuthenticated = false;
                 console.log('No token found, redirecting to login');
-                router.push({ name: 'login' });
+                // router.push({ name: 'login' });
             }
         },
     },

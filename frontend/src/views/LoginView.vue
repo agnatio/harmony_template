@@ -44,9 +44,12 @@
 
     const handleLogin = async () => {
         try {
-            authStore.login(username.value, password.value);
+            await authStore.login(username.value, password.value);
+            // debugger
             if (accessSource.value) {
-                router.push({ name: accessSource })
+
+                await router.push({ name: accessSource.value })
+
                 accessSource.value = ''
             }
             else {

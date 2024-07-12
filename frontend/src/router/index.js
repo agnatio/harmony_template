@@ -39,17 +39,27 @@ const router = createRouter({
   routes,
 });
 
-const isAuthenticated = localStorage.getItem('access_token');
-const freePaths = ['home', 'login', 'register']
+const freeNames = ['home', 'login', 'register']
 const accessSource = ref('')
 
 router.beforeEach((to, from, next) => {
-  console.log("TO: ", to);
-  console.log("FROM:", from);
-  if (!freePaths.includes(to.name) && !isAuthenticated) {
+  const isAuthenticated = localStorage.getItem('access_token');
+
+  // const fullUrl = window.location.href; // Get the full URL
+  // const baseUrl = window.location.origin; // Get the base URL (scheme + host + port)
+  // const urlPath = fullUrl.replace(baseUrl, ''); // Subtract base URL to get the path
+  // console.log("URL:", urlPath);
+  // // console.log("TO: ", to);
+  // // console.log("FROM:", from);
+  // console.log("freeNames.includes(to.name): ", freeNames.includes(urlPath))
+  // console.log("isAuthenticated: ", isAuthenticated)
+  // debugger
+  if (!freeNames.includes(to.name) && !isAuthenticated) {
+    accessSource.value = to.name
+    console.log(accessSource.value)
     next({ name: 'login' })
-    accessSource = to.name
   }
+  // to.name !== 'login' && 
   else next()
 
 })

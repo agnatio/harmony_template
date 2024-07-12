@@ -20,12 +20,12 @@
 
   const isAuthenticated = ref(false)
 
-  onMounted(async () => {
-    const authStatus = await authApi.checkAuth()
-    if (authStatus) {
-      isAuthenticated.value = true
-    } else {
-      router.push({ name: 'login' })
-    }
-  })
+  // onMounted(async () => {
+  //   const authStatus = await authApi.checkAuth()
+  //   if (authStatus) {
+  //     isAuthenticated.value = true
+  //   } else {
+  //     router.push({ name: 'login' })
+  //   }
+  // })
 </script>
