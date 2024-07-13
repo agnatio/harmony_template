@@ -14,7 +14,8 @@
                 active-class="font-bold">Protected</router-link>
         </div>
         <div class="flex items-center gap-8">
-            <span v-if="authStore.isAuthenticated && authStore.user">User: {{ authStore.user.username }}</span>
+            <span v-if="authStore.isAuthenticated && authStore.loginDataState">Hello, {{
+                authStore.loginDataState.username }}</span>
             <router-link v-if="!authStore.isAuthenticated" to="/login"
                 class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1"
                 active-class="font-bold">Login</router-link>
@@ -25,7 +26,7 @@
 </template>
 
 <script setup>
-    import { useAuthStore } from '@/stores/authStore'; // Correct path to the store
+    import { useAuthStore } from '@/stores/authStore';
     import { onMounted } from 'vue';
 
     const authStore = useAuthStore();
