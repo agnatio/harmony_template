@@ -2,27 +2,20 @@
 import { defineStore } from 'pinia';
 import api from '@/core/apiClient';
 import { router } from '@/router';
-import authApi from '@/core/authService';
+import authService from '@/core/authService';
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         isAuthenticated: false,
-        userPath: '',
+        user: null, // Track user information
     }),
     actions: {
         async login(username, password) {
             try {
-                await authApi.login(username, password)
+                const { token, username: logged_user } = await authService.login(username, password);
                 this.isAuthenticated = true;
-                // const response = await api.post('/auth/login', {
-                //     username,
-                //     password,
-                // });
-                // const token = response.data.access_token;
-                // localStorage.setItem('access_token', token);
-                // this.isAuthenticated = true;
-                // console.log('Login successful, token set:', token);
-                // router.push({ name: 'home' });
+                this.user = { username: logged_user }; // Store the username in the user state
+                console.log('User logged in:', this.user);
             } catch (error) {
                 console.error('Error during login:', error);
                 throw error;
@@ -31,6 +24,7 @@ export const useAuthStore = defineStore('auth', {
         logout() {
             localStorage.removeItem('access_token');
             this.isAuthenticated = false;
+            this.user = null;
             console.log('Logged out, token removed');
             router.push({ name: 'home' });
         },
@@ -41,16 +35,17 @@ export const useAuthStore = defineStore('auth', {
                 try {
                     await api.get('/auth/checkauth');
                     this.isAuthenticated = true;
+                    this.user = { username: 'username_from_token' }; // Set user information from token payload if necessary
                     console.log('Auth check successful');
                 } catch (error) {
                     this.isAuthenticated = false;
+                    this.user = null;
                     console.log('Auth check failed, redirecting to login');
-                    // router.push({ name: 'login' });
                 }
             } else {
                 this.isAuthenticated = false;
+                this.user = null;
                 console.log('No token found, redirecting to login');
-                // router.push({ name: 'login' });
             }
         },
     },

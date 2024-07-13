@@ -1,5 +1,5 @@
 <template>
-    <main class="flex items-center justify-center h-[calc(100vh-1.8rem)] bg-gray-500">
+    <main class="flex items-center justify-center h-[calc(100vh-1.85rem)] bg-gray-500">
         <div class="w-full max-w-sm bg-gray-200 p-4 border-2 border-gray-600 rounded-lg shadow-lg">
             <h1 class="text-2xl font-bold text-gray-900 mb-1 text-center">Register</h1>
             <form @submit.prevent="handleRegister" class="space-y-3">

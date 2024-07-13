@@ -14,6 +14,7 @@
                 active-class="font-bold">Protected</router-link>
         </div>
         <div class="flex items-center gap-8">
+            <span v-if="authStore.isAuthenticated && authStore.user">User: {{ authStore.user.username }}</span>
             <router-link v-if="!authStore.isAuthenticated" to="/login"
                 class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1"
                 active-class="font-bold">Login</router-link>
@@ -24,24 +25,13 @@
 </template>
 
 <script setup>
-    import { useAuthStore } from '@/stores/authStore';
+    import { useAuthStore } from '@/stores/authStore'; // Correct path to the store
     import { onMounted } from 'vue';
 
     const authStore = useAuthStore();
 
     const handleLogout = () => {
         authStore.logout();
-    };
-
-    const handleLogin = async () => {
-        try {
-            const token = await authStore.login('username', 'password'); // Replace with actual login credentials
-            console.log('Login successful, token:', token);
-            // Optionally perform other actions after successful login (e.g., redirect)
-        } catch (error) {
-            console.error('Error during login:', error);
-            // Handle login error (e.g., show error message)
-        }
     };
 
     onMounted(() => {

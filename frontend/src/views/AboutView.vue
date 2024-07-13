@@ -1,5 +1,5 @@
 <template>
-  <main class="flex items-top justify-center h-[calc(100vh-1.3rem)] bg-gray-500 pt-10">
+  <main class="flex items-top justify-center h-[calc(100vh-1.85rem)] bg-gray-500 pt-10">
     <div class="text-left space-y-6">
       <p class="text-lg text-gray-800">Welcome to SQL Harmony project! Your access to Oracle Fusion queries</p>
       <div class="aspect-w-16 aspect-h-9">
@@ -14,18 +14,5 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
-  import authApi from '@/core/authService'
-  import { router } from '@/router'
 
-  const isAuthenticated = ref(false)
-
-  // onMounted(async () => {
-  //   const authStatus = await authApi.checkAuth()
-  //   if (authStatus) {
-  //     isAuthenticated.value = true
-  //   } else {
-  //     router.push({ name: 'login' })
-  //   }
-  // })
 </script>
