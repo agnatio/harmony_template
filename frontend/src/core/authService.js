@@ -8,9 +8,9 @@ const authApi = {
         username,
         password,
       });
+      const resp_data = response.data;
+      console.log("resp_data: ", resp_data)
       const token = response.data.access_token;
-      username_back = response.data.username;
-      console.log("response_data: ", response.data)
       localStorage.setItem('access_token', token); // Store the token in localStorage
       console.log('access_token', token);
       return token; // Return the token for further processing if needed

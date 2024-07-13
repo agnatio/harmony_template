@@ -21,7 +21,7 @@ api.interceptors.response.use((response) => response, (err) => {
   console.log("Error response status:", err.response.status); // Debug the error status
   if (err.response.status === 401) {
     console.log("Unauthorized error, redirecting to login"); // Confirm redirection
-    router.push({ path: '/auth/login' })
+    router.push({ path: '/' })
   }
   return Promise.reject(err)
 })
