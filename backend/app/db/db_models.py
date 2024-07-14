@@ -8,11 +8,14 @@ from sqlalchemy import (
     Text,
     Float,
     JSON,  # Add JSON import for databases that support it
+    MetaData,
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.db.db_init import Base
 from datetime import datetime
+
+metadata = MetaData()
 
 
 class User(Base):
@@ -20,6 +23,9 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=False, index=True)
+    name = Column(String, nullable=True)
+    surname = Column(String, nullable=True)
+    linkedin_profile = Column(String, nullable=True)
     hashed_password = Column(String)
     is_superuser = Column(Boolean, default=False)
     last_login_time = Column(DateTime)
