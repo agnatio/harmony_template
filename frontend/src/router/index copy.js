@@ -1,26 +1,52 @@
+// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import LoginView from '../views/LoginView.vue';
 import { useAuthStore } from '@/stores/authStore';
 import { ref } from 'vue';
-import allRoutes from '@/data/allRoutesMenu.json';
 
-const routes = allRoutes.map(route => ({
-  path: route.path,
-  name: route.name,
-  component: () => import(`../views/${route.component}.vue`),
-}));
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView,
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/AboutView.vue'),
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/RegisterView.vue'),
+  },
+  {
+    path: '/dummyprotected',
+    name: 'dummyprotected',
+    component: () => import('../views/DummyProtectedView.vue'),
+  }
+
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
 
-const freeNames = allRoutes.filter(route => !route.protected).map(route => route.name);
-console.log(freeNames)
-const accessSource = ref('');
+const freeNames = ['home', 'login', 'register']
+const accessSource = ref('')
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
+
   const storedLoginData = localStorage.getItem('login_data');
+
   console.log("storedLoginData: ", storedLoginData);
 
   let isAuthenticated = false;
@@ -43,5 +69,6 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
 });
+
 
 export { router, accessSource };
