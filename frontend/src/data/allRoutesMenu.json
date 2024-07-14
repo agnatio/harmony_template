@@ -4,6 +4,15 @@
         "name": "home",
         "component": "HomeView",
         "protected": false,
+        "side": "left",
+        "children": []
+    },
+    {
+        "path": "/",
+        "name": "home",
+        "component": "HomeView",
+        "protected": true,
+        "side": "left",
         "children": []
     },
     {
@@ -11,6 +20,7 @@
         "name": "login",
         "component": "LoginView",
         "protected": false,
+        "side": "right",
         "children": []
     },
     {
@@ -18,6 +28,7 @@
         "name": "about",
         "component": "AboutView",
         "protected": true,
+        "side": "left",
         "children": []
     },
     {
@@ -25,6 +36,7 @@
         "name": "register",
         "component": "RegisterView",
         "protected": false,
+        "side": "left",
         "children": []
     },
     {
@@ -32,6 +44,20 @@
         "name": "dummyprotected",
         "component": "DummyProtectedView",
         "protected": true,
-        "children": []
+        "side": "left",
+        "children": [
+            {
+                "path": "/dummyprotected-subpage",
+                "name": "dummyprotected-subpage",
+                "component": "DummyProtectedSubpageView",
+                "protected": true
+            },
+            {
+                "path": "/dummyprotected-subpage",
+                "name": "dummyprotected-subpage",
+                "component": "DummyProtectedSubpageView",
+                "protected": true
+            }
+        ]
     }
 ]

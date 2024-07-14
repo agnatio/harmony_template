@@ -3,11 +3,45 @@ import { useAuthStore } from '@/stores/authStore';
 import { ref } from 'vue';
 import allRoutes from '@/data/allRoutesMenu.json';
 
-const routes = allRoutes.map(route => ({
-  path: route.path,
-  name: route.name,
-  component: () => import(`../views/${route.component}.vue`),
-}));
+// Function to recursively declare routes for children
+function declareRoutes(route) {
+  const routes = [];
+
+  // Add parent route
+  routes.push({
+    path: route.path,
+    name: route.name,
+    component: () => import(`../views/${route.component}.vue`),
+    meta: {
+      protected: route.protected // Optionally pass any metadata
+    }
+  });
+
+  // Add children routes if present
+  if (route.children && route.children.length > 0) {
+    route.children.forEach(child => {
+      const childRoute = {
+        path: child.path,
+        name: child.name,
+        component: () => import(`../views/${child.component}.vue`),
+        meta: {
+          protected: child.protected // Optionally pass any metadata
+        }
+      };
+      routes.push(childRoute);
+    });
+  }
+
+  return routes;
+}
+
+const routes = [];
+
+// Iterate through allRoutes to declare routes and nested routes
+allRoutes.forEach(route => {
+  const declaredRoutes = declareRoutes(route);
+  routes.push(...declaredRoutes);
+});
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,26 +49,21 @@ const router = createRouter({
 });
 
 const freeNames = allRoutes.filter(route => !route.protected).map(route => route.name);
-console.log(freeNames)
 const accessSource = ref('');
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
   const storedLoginData = localStorage.getItem('login_data');
-  console.log("storedLoginData: ", storedLoginData);
 
   let isAuthenticated = false;
 
   if (storedLoginData) {
     const parsedLoginData = JSON.parse(storedLoginData);
     isAuthenticated = parsedLoginData?.access_token;
-    console.log('parsedLoginData: ', parsedLoginData);
-    console.log('isAuthenticated: ', isAuthenticated);
   }
 
-  if (!freeNames.includes(to.name) && !isAuthenticated) {
-    accessSource.value = to.name;
-    console.log(accessSource.value);
+  // Check if route is protected and user is not authenticated
+  if (to.meta.protected && !isAuthenticated) {
     next({ name: 'login' });
   } else if (to.name === 'login' && isAuthenticated) {
     // Redirect authenticated users away from the login page

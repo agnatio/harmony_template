@@ -14,15 +14,16 @@
                 active-class="font-bold">Protected</router-link>
         </div>
         <div class="flex items-center gap-8 relative">
-            <span v-if="authStore.isAuthenticated && authStore.loginDataState" @click="toggleSubmenu">
-                Hello, {{ authStore.loginDataState.username }}
+            <span v-if="authStore.isAuthenticated && authStore.loginDataState" @click="toggleSubmenu"
+                class="cursor-pointer">
+                Hello, {{ authStore.loginDataState.username }} &#9662;
             </span>
             <router-link v-if="!authStore.isAuthenticated" to="/login"
                 class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1"
                 active-class="font-bold">Login</router-link>
             <button v-else @click="handleLogout"
                 class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1">Logout</button>
-            <div v-if="showSubmenu" class="absolute right-0 top-full bg-white border border-sky-600 mt-2 p-2">
+            <div v-if="showSubmenu" class="submenu">
                 <button @click="handleLogout"
                     class="block w-full text-left px-4 py-2 text-gray-600 hover:bg-sky-300">Logout</button>
                 <router-link to="/settings"
