@@ -59,5 +59,26 @@
                 "protected": true
             }
         ]
+    },
+    {
+        "path": "/dummyprotected",
+        "name": "dummyprotected",
+        "component": "DummyProtectedView",
+        "protected": true,
+        "side": "left",
+        "children": [
+            {
+                "path": "/dummyprotected-subpage",
+                "name": "dummyprotected-subpage",
+                "component": "DummyProtectedSubpageView",
+                "protected": true
+            },
+            {
+                "path": "/dummyprotected-subpage",
+                "name": "dummyprotected-subpage",
+                "component": "DummyProtectedSubpageView",
+                "protected": true
+            }
+        ]
     }
 ]

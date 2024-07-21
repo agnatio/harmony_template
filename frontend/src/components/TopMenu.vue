@@ -3,8 +3,8 @@
         <!-- Left side menu items -->
         <div class="flex items-center gap-4">
             <!-- Render left routes -->
-            <div v-for="(route, index) in filteredLeftRoutes" :key="index">
-                <div v-if="route.children && route.children.length > 0" class="relative">
+            <div v-for="(route, index) in filteredLeftRoutes" :key="index" class="relative">
+                <div v-if="route.children && route.children.length > 0">
                     <!-- Dropdown toggle for routes with children -->
                     <span class="cursor-pointer" @mouseenter="toggleSubmenu(index, true)"
                         @mouseleave="closeSubmenu(index)">
@@ -58,16 +58,16 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
     import { useAuthStore } from '@/stores/authStore';
-    import { onMounted, computed } from 'vue';
     import allRoutes from '@/data/allRoutesMenu.json';
 
     const authStore = useAuthStore();
-    const showSubmenu = ref({}); // Use an object to store submenu visibility state for dynamic keys
-    const submenuTimers = {}; // Store timers for delay on submenu close
+    const showSubmenu = ref({});
+    const submenuTimers = {};
 
-    const xnor = (a, b) => !(a ^ b); // XOR function to determine visibility
+    // XOR function for visibility logic
+    const xnor = (a, b) => !(a ^ b);
 
     const leftRoutes = computed(() => allRoutes.filter(route => route.side === 'left'));
 
@@ -76,11 +76,7 @@
     });
 
     const toggleSubmenu = (key, state) => {
-        if (state !== undefined) {
-            showSubmenu.value[key] = state;
-        } else {
-            showSubmenu.value[key] = !showSubmenu.value[key];
-        }
+        showSubmenu.value[key] = state;
     };
 
     const keepSubmenuOpen = (key) => {
@@ -91,34 +87,49 @@
     const closeSubmenu = (key) => {
         submenuTimers[key] = setTimeout(() => {
             showSubmenu.value[key] = false;
-        }, 200); // Adjust the delay (in milliseconds) as needed
+        }, 20);
     };
 
     const handleLogout = () => {
         authStore.logout();
-        showSubmenu.value['userMenu'] = false; // Close user submenu on logout
+        showSubmenu.value['userMenu'] = false;
     };
 
+    // Check authentication status on component mount
     onMounted(() => {
-        authStore.checkAuth(); // Check authentication status on component mount
+        authStore.checkAuth();
+    });
+
+    // Close all submenus when clicking outside
+    document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!target.closest('.submenu') && !target.closest('span')) {
+            Object.keys(showSubmenu.value).forEach(key => {
+                showSubmenu.value[key] = false;
+            });
+        }
     });
 </script>
 
 <style scoped>
+    .relative {
+        position: relative;
+    }
 
-    /* Add styles for the submenu */
     .submenu {
         position: absolute;
-        right: 0;
+        left: 0;
+        /* Aligns submenu directly under the parent */
         top: calc(100% + 5px);
-        /* Adjust the spacing to give more room */
+        /* Positions submenu just below the parent */
         background-color: white;
         border: 1px solid #38bdf8;
         margin-top: 0.5rem;
         padding: 0.5rem;
         z-index: 10;
         min-width: 120px;
-        /* Ensure a minimum width to prevent sudden closure */
+        /* Adjust as needed */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .submenu button,
