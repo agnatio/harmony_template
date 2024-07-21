@@ -25,11 +25,18 @@
     },
     {
         "path": "/about",
-        "name": "about",
+        "name": "Info",
         "component": "AboutView",
         "protected": true,
         "side": "left",
-        "children": []
+        "children": [
+            {
+                "path": "/about",
+                "name": "about",
+                "component": "AboutView",
+                "protected": true
+            }
+        ]
     },
     {
         "path": "/register",
