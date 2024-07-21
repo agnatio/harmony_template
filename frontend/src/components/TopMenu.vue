@@ -11,8 +11,9 @@
                         {{ route.name.charAt(0).toUpperCase() + route.name.slice(1) }} &#9662;
                     </span>
                     <!-- Submenu for routes that have children -->
-                    <div v-if="showSubmenu[index]" class="submenu" @mouseenter="keepSubmenuOpen(index)"
-                        @mouseleave="closeSubmenu(index)">
+                    <div v-if="showSubmenu[index]"
+                        class="absolute left-[-10px] top-full mt-1 bg-white border border-gray-300 shadow-lg min-w-[120px]"
+                        @mouseenter="keepSubmenuOpen(index)" @mouseleave="closeSubmenu(index)">
                         <router-link v-for="child in route.children" :key="child.name" :to="child.path"
                             class="block w-full text-left px-4 py-2 text-gray-600 hover:bg-sky-300"
                             active-class="font-bold">
@@ -40,8 +41,9 @@
                 class="text-gray-600 hover:bg-sky-300 hover:text-white px-3 py-1">Logout
             </button>
             <!-- Submenu for authenticated user -->
-            <div v-if="showSubmenu['userMenu']" class="submenu" @mouseenter="keepSubmenuOpen('userMenu')"
-                @mouseleave="closeSubmenu('userMenu')">
+            <div v-if="showSubmenu['userMenu']"
+                class="absolute right-0 top-full mt-1 bg-white border border-gray-300 shadow-lg min-w-[180px]"
+                @mouseenter="keepSubmenuOpen('userMenu')" @mouseleave="closeSubmenu('userMenu')">
                 <button @click="handleLogout"
                     class="block w-full text-left px-4 py-2 text-gray-600 hover:bg-sky-300">Logout
                 </button>
@@ -87,7 +89,7 @@
     const closeSubmenu = (key) => {
         submenuTimers[key] = setTimeout(() => {
             showSubmenu.value[key] = false;
-        }, 20);
+        }, 70);
     };
 
     const handleLogout = () => {
@@ -103,7 +105,7 @@
     // Close all submenus when clicking outside
     document.addEventListener('click', (event) => {
         const target = event.target;
-        if (!target.closest('.submenu') && !target.closest('span')) {
+        if (!target.closest('.absolute')) {
             Object.keys(showSubmenu.value).forEach(key => {
                 showSubmenu.value[key] = false;
             });
@@ -112,38 +114,5 @@
 </script>
 
 <style scoped>
-    .relative {
-        position: relative;
-    }
-
-    .submenu {
-        position: absolute;
-        left: 0;
-        /* Aligns submenu directly under the parent */
-        top: calc(100% + 5px);
-        /* Positions submenu just below the parent */
-        background-color: white;
-        border: 1px solid #38bdf8;
-        margin-top: 0.5rem;
-        padding: 0.5rem;
-        z-index: 10;
-        min-width: 120px;
-        /* Adjust as needed */
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .submenu button,
-    .submenu a {
-        display: block;
-        width: 100%;
-        text-align: left;
-        padding: 0.5rem 1rem;
-        color: #4b5563;
-        text-decoration: none;
-    }
-
-    .submenu button:hover,
-    .submenu a:hover {
-        background-color: #7dd3fc;
-    }
+    /* No additional scoped styles needed; positioning handled by TailwindCSS */
 </style>
