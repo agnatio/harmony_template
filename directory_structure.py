@@ -12,22 +12,12 @@ def list_files(
     ],
     max_levels=None,
 ):
-    # Initial display for the root directory
-    print("./")
+    print("./")  # Initial display for the root directory
 
     for root, dirs, files in os.walk(startpath):
         for obj in remove_objects:
             if obj in dirs:
                 dirs.remove(obj)
-
-        if "__pycache__" in dirs:
-            dirs.remove("__pycache__")
-
-        if "_delete" in dirs:
-            dirs.remove("_delete")
-
-        if "alembic" in dirs:
-            dirs.remove("alembic")
 
         level = root.replace(startpath, "").count(os.sep)
 
@@ -48,6 +38,13 @@ def list_files(
 
 
 if __name__ == "__main__":
-    remove_objects = ["venv", ".git"]
+    remove_objects = [
+        "venv",
+        ".git",
+        "node_modules",
+        "__pycache__",
+        "alembic",
+        ".pytest_cache",
+    ]
 
     list_files(".", max_levels=3, remove_objects=remove_objects)
